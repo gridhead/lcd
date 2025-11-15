@@ -7,7 +7,7 @@ from os.path import exists
 
 # old and new versions of the RPi have swapped the two i2c buses
 # they can be identified by RPI_REVISION (or check sysfs)
-BUS_NUMBER = 0 if RPI_REVISION == 1 else 1
+BUS_NUMBER = 2
 
 # other commands
 LCD_CLEARDISPLAY = 0x01

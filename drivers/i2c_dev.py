@@ -99,8 +99,10 @@ class I2CDevice:
 
 
 class Lcd:
-    def __init__(self, addr=None):
+    def __init__(self, addr=None, cols=16, rows=2):
         self.addr = addr
+        self.cols = cols  # Number of columns (16 or 20)
+        self.rows = rows  # Number of rows (2 or 4)
         self.lcd = I2CDevice(addr=self.addr, addr_default=0x27)
         self.lcd_write(0x03)
         self.lcd_write(0x03)
@@ -146,6 +148,8 @@ class Lcd:
             self.lcd_write(0x94)
         if line == 4:
             self.lcd_write(0xD4)
+        # Truncate string to fit display width
+        string = string[:self.cols]
         for char in string:
             self.lcd_write(ord(char), Rs)
 
@@ -161,15 +165,18 @@ class Lcd:
         if line == 4:
             self.lcd_write(0xD4)
         # Process the string
-        while string:
+        char_count = 0  # Track actual displayed characters
+        while string and char_count < self.cols:
             # Trying to find pattern {0xFF} representing a symbol
             result = match(r'\{0[xX][0-9a-fA-F]{2}\}', string)
             if result:
                 self.lcd_write(int(result.group(0)[1:-1], 16), Rs)
                 string = string[6:]
+                char_count += 1
             else:
                 self.lcd_write(ord(string[0]), Rs)
                 string = string[1:]
+                char_count += 1
 
     # clear lcd and set to home
     def lcd_clear(self):

@@ -1,6 +1,6 @@
 # LCD
 
-This repository contains all the code for interfacing with a **16x2 character I2C liquid-crystal display (LCD)**. This accompanies my **Youtube tutorial**: [Raspberry Pi - Mini LCD Display Tutorial](https://www.youtube.com/watch?v=fR5XhHYzUK0).
+This repository contains all the code for interfacing with **16x2 and 20x4 character I2C liquid-crystal displays (LCDs)**. This accompanies my **Youtube tutorial**: [Raspberry Pi - Mini LCD Display Tutorial](https://www.youtube.com/watch?v=fR5XhHYzUK0).
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=fR5XhHYzUK0">
@@ -13,6 +13,7 @@ You can buy one of these great little I2C LCD on eBay or somewhere like [the Pi 
 ## Table of Contents
 
 1. [Installation](#installation)
+1. [Display Configuration](#display-configuration)
 1. [Demos](#demos)
    - [Backlight control](#backlight-control)
    - [Custom characters](#custom-characters)
@@ -81,6 +82,42 @@ You can buy one of these great little I2C LCD on eBay or somewhere like [the Pi 
   ```sh
   python3 /home/${USER}/lcd/demo_clock.py
   ```
+
+[top :arrow_up:](#table-of-contents)
+
+## Display Configuration
+
+The LCD driver supports both **16x2** and **20x4** displays. By default, it assumes a 16x2 display, but you can configure it for different sizes.
+
+### Using a 16x2 Display (Default)
+
+If you have a 16x2 display, you don't need to specify any parameters:
+
+```python
+import drivers
+display = drivers.Lcd()
+```
+
+### Using a 20x4 Display
+
+For a 20x4 display, specify the columns and rows when initializing:
+
+```python
+import drivers
+display = drivers.Lcd(cols=20, rows=4)
+```
+
+### Custom Display Sizes
+
+You can also specify other display sizes if needed:
+
+```python
+import drivers
+# Example: 8x2 display
+display = drivers.Lcd(cols=8, rows=2)
+```
+
+**Note:** The driver automatically truncates strings that exceed the display width, so you don't need to worry about manually limiting string lengths.
 
 [top :arrow_up:](#table-of-contents)
 
@@ -282,7 +319,7 @@ Use the following procedure to run any LCD Python script as a (systemd) service:
 
    ```sh
    [Unit]
-   Description=RPi Python script for a 16x2 LCD
+   Description=RPi Python script for LCD (16x2 or 20x4)
 
    [Service]
    Type=simple

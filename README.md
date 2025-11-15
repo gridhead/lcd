@@ -25,6 +25,7 @@ You can buy one of these great little I2C LCD on eBay or somewhere like [the Pi 
    - [NetMonitor](#netmonitor)
    - [Progress bar](#progress-bar)
    - [Tiny Dashboard](#tiny-dashboard)
+1. [20x4 Display Demos](#20x4-display-demos)
 1. [Implementation](#implementation)
    - [Systemd](#systemd)
 1. [Contributions](#contributions)
@@ -123,7 +124,9 @@ display = drivers.Lcd(cols=8, rows=2)
 
 ## Demos
 
-A list of demonstration (demo) files that illustrate how to use the LCD driver.  Demos are ordered alphabetically.
+A list of demonstration (demo) files that illustrate how to use the LCD driver. Demos are ordered alphabetically.
+
+**Note:** All original demos are designed for 16x2 displays. For 20x4 displays, see the [20x4 Display Demos](#20x4-display-demos) section below.
 
 ### Backlight Control
 
@@ -286,6 +289,47 @@ In order to use the script, you need to get **API key tokens for both exchange r
 Also set a currency exchange pair. For currency support and the currency codes you need to use, see [exchangerate-api.com/docs/supported-currencies](https://www.exchangerate-api.com/docs/supported-currencies).
 
 A city/country string is also needed to show weather info for such city. Search for your city on [openweathermap.org](https://openweathermap.org) and take note of the `City,country` string and put it in the script.`London,gb` is given as an example.
+
+[top :arrow_up:](#table-of-contents)
+
+## 20x4 Display Demos
+
+All of the original demos have been adapted for 20x4 displays, taking advantage of the additional screen space (20 columns × 4 rows instead of 16 columns × 2 rows). These demos have the `_20x4` suffix in their filenames.
+
+### Available 20x4 Demos
+
+1. **demo_clock_20x4.py** - Enhanced clock display showing both date and time with separators
+2. **demo_lcd_20x4.py** - Basic demonstration of text display on all 4 lines
+3. **demo_clock_and_IP_20x4.py** - Displays system time and IP address with headers
+4. **demo_lcd_backlight_20x4.py** - Backlight control demonstration utilizing all 4 lines
+5. **demo_scrolling_text_20x4.py** - Scrolling text on multiple lines (supports 20 character width)
+6. **demo_lcd_extended_strings_20x4.py** - Extended character demonstration on 4 lines
+7. **demo_lcd_custom_characters_20x4.py** - Custom character display with additional context
+8. **demo_lcd_process_bar_20x4.py** - Enhanced progress bar with status information
+9. **demo_netmonit_20x4.py** - Network monitoring showing multiple hosts/services at once
+
+### Running 20x4 Demos
+
+To run any 20x4 demo, simply execute it like the standard demos:
+
+```sh
+python3 demo_clock_20x4.py
+```
+
+Or make it executable and run directly:
+
+```sh
+chmod +x demo_clock_20x4.py
+./demo_clock_20x4.py
+```
+
+### Key Differences from 16x2 Demos
+
+- **More content:** 20x4 displays can show 80 characters total (vs 32 on 16x2)
+- **Better organization:** Headers, content, and status can be separated across lines
+- **Enhanced progress bars:** Wider bars (14 segments instead of 10) with status indicators
+- **Multiple data points:** Network monitor can show 3 items simultaneously
+- **Improved readability:** More space for labels and formatted output
 
 [top :arrow_up:](#table-of-contents)
 
